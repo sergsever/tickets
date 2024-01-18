@@ -1,0 +1,1 @@
+java -jar .\target\tickets.jar\tickets.jar tickets.json >> result.txt
