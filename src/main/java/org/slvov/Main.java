@@ -34,9 +34,11 @@ public class Main {
                 Gson gson = new Gson();
                 Type listType = new TypeToken<List<Ticket>>(){}.getType();
                 List<Ticket> ltickets = gson.fromJson(json, listType);
+                /* Список билетов Владивосток - Тель-Авив. */
                 List<Ticket> vtvtickets = (List<Ticket>) ltickets.stream().filter(t ->{return  t.get_origin().equals("VVO") & t.get_destination().equals("TLV");}).toList();
 //                long duration = ltickets.get(0).flytime();
                 System.out.println("ltickets: " + vtvtickets.size());
+                /* Группировка по перевозчикам для определения минимальной продолжительности полета для каждого. */
                 Map<String, List<Ticket>> grouped = vtvtickets.stream().collect(Collectors.groupingBy(Ticket::get_carrier));
                 /*Минимальная продолжительность полета*/
                 System.out.println("The best duration of the flight by carriers: ");
