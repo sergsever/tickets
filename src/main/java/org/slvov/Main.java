@@ -44,15 +44,17 @@ public class Main {
                 System.out.println("The best duration of the flight by carriers: ");
                 for(Map.Entry<String, List<Ticket>> carrier : grouped.entrySet())
                 {
-                    String result = String.format("%d hours", carrier.getValue().get(0).flytime()/60);
                     Collections.sort(carrier.getValue(), new FlytimeComparator());
+                    String result = String.format("%d hours, %d minutes", carrier.getValue().get(0).flytime()/60, carrier.getValue().get(0).flytime() % 60);
+
+
                     System.out.println("carrier: " + carrier.getKey() + " - " + result);
                 }
                 /* Разница между средней ценой и медианой. */
                 List<Ticket> tvtickets = new ArrayList<Ticket>(vtvtickets);
                 Collections.sort(tvtickets, new PriceComparator());
-				int medianIndex = tvtickets.size()/2;
-                long median = tvtickets.get(medianIndex).get_price();
+//				int medianIndex = tvtickets.size()/2 + 1;
+                long median = tvtickets.size() % 2 == 1? tvtickets.get(tvtickets.size()/2).get_price() : (tvtickets.get(tvtickets.size()/2).get_price() + tvtickets.get(tvtickets.size()/2 - 1).get_price())/2;
                 long middle = tvtickets.stream().filter(t -> t.get_price() > 0).mapToLong(t -> { return t.get_price();}).sum() /tvtickets.size();
                 System.out.println("difference between the middle price and median price: " + (middle - median));
 
