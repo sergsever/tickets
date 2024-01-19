@@ -49,7 +49,8 @@ public class Main {
                 /* Разница между средней ценой и медианой. */
                 List<Ticket> tvtickets = new ArrayList<Ticket>(vtvtickets);
                 Collections.sort(tvtickets, new PriceComparator());
-                long median = tvtickets.get(tvtickets.size()/2 - 1).get_price();
+				int medianIndex = tvtickets.size()/2;
+                long median = tvtickets.get(medianIndex).get_price();
                 long middle = tvtickets.stream().filter(t -> t.get_price() > 0).mapToLong(t -> { return t.get_price();}).sum() /tvtickets.size();
                 System.out.println("difference between the middle price and median price: " + (middle - median));
 
